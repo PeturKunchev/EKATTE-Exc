@@ -1,0 +1,28 @@
+# Node.js
+node_modules/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+
+# Environment variables (if using dotenv)
+.env
+
+# Build and temporary files
+dist/
+build/
+coverage/
+
+# Logs
+*.log
+
+# PostgreSQL / SQLite files
+*.db
+*.sqlite
+
+# OS-specific files
+.DS_Store         # macOS
+Thumbs.db         # Windows
+
+# IDE / Editor files
+.vscode/
+.idea/
