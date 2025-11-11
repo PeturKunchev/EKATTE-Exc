@@ -1,7 +1,7 @@
 CREATE TABLE regions (
     id SERIAL PRIMARY KEY,
     code CHAR(5) UNIQUE NOT NULL,
-    region_code CHAR(3) UNIQUE NOT NULL,
+    region_code CHAR(3) NOT NULL,
     name_bg VARCHAR(100) NOT NULL,
     name_lat VARCHAR(100),
     NUTS1 VARCHAR(5),
@@ -13,7 +13,7 @@ CREATE TABLE regions (
 CREATE TABLE municipalities (
     id SERIAL PRIMARY KEY,
     code CHAR(5) UNIQUE NOT NULL,
-    municipality_code CHAR(5) UNIQUE NOT NULL,
+    municipality_code CHAR(5) NOT NULL,
     region_id INT NOT NULL, 
     name_bg VARCHAR(100) NOT NULL,
     name_lat VARCHAR(100),
