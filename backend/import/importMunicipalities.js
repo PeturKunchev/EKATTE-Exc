@@ -36,15 +36,9 @@ const importMunicipalities = () => {
                 console.log(`Municipality ${municipality.name} already exists in the database. Skipping insertion.`);
                 continue;  
             }
-            const docQuery = {
-            text: "SELECT id FROM documents WHERE document = $1",
-            values: [municipality.document]
-            };
-            
-            const docResult = await client.query(docQuery);
-            const document_id = docResult.rows[0].id;
+
             const query = {
-                text:'INSERT INTO municipalities(code,municipality_code,region_id,name_bg,name_lat,category,document_id) VALUES ($1, $2, $3, $4, $5, $6, $7)',
+                text:'INSERT INTO municipalities(code,municipality_code,region_id,name_bg,name_lat,category,document) VALUES ($1, $2, $3, $4, $5, $6, $7)',
                 values:[
                     municipality.obshtina,
                     municipality.ekatte,
@@ -52,7 +46,7 @@ const importMunicipalities = () => {
                     municipality.name,
                     municipality.name_en,
                     municipality.category,
-                    document_id,
+                    municipality.document,
                 ]
             };
 

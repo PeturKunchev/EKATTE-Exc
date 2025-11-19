@@ -36,22 +36,15 @@ const importMayoralities = () => {
             }
             const resultMunicipalityId = await client.query(municipalityIdQuery);
             const municipalityId = resultMunicipalityId.rows[0].id;
-            const docQuery = {
-            text: "SELECT id FROM documents WHERE document = $1",
-            values: [mayorality.document]
-            };
-            
-            const docResult = await client.query(docQuery);
-            const document_id = docResult.rows[0].id;
             const query = {
-                text:'INSERT INTO mayoralties(id_code,name_bg,name_lat,municipality_id,code,document_id,category) VALUES ($1, $2, $3, $4, $5, $6, $7)',
+                text:'INSERT INTO mayoralties(id_code,name_bg,name_lat,municipality_id,code,document,category) VALUES ($1, $2, $3, $4, $5, $6, $7)',
                 values:[
                     mayorality.kmetstvo,
                     mayorality.name,
                     mayorality.name_en,
                     municipalityId,
                     mayorality.ekatte,
-                    document_id,
+                    mayorality.document,
                     mayorality.category
                 ]
             };

@@ -29,16 +29,9 @@ const importRegions = () =>{
                 continue;  
             }
 
-            const docQuery = {
-            text: "SELECT id FROM documents WHERE document = $1",
-            values: [region.document]
-            };
-
-            const docResult = await client.query(docQuery);
-            const document_id = docResult.rows[0].id;
 
         const query = {
-            text: 'INSERT INTO regions(code, region_code, name_bg, name_lat, NUTS1, NUTS2, NUTS3, document_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)',
+            text: 'INSERT INTO regions(code, region_code, name_bg, name_lat, NUTS1, NUTS2, NUTS3, document) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)',
             values: [
                 region.ekatte,
                 region.oblast,
@@ -47,7 +40,7 @@ const importRegions = () =>{
                 region.nuts1,
                 region.nuts2,
                 region.nuts3,
-                document_id,
+                region.document,
             ],
         };
         try {
