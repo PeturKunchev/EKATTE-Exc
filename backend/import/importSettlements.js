@@ -63,7 +63,7 @@ const importMayoralities = () => {
             const docResult = await client.query(docQuery);
             const document_id = docResult.rows[0].id;
             const query = {
-                text:'INSERT INTO settlements(ekatte_code,type,name_bg,name_lat,region_id,municipality_id,mayoralty_id,nuts1,nuts2,nuts3,type_code,category_code,sea_level_code,sea_level,document_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15)',
+                text:'INSERT INTO settlements(ekatte_code,type,name_bg,name_lat,region_id,municipality_id,mayoralty_id,type_code,category_code,sea_level_code,sea_level,document_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)',
                 values:[
                     settlement.ekatte,
                     settlement.t_v_m,
@@ -72,9 +72,6 @@ const importMayoralities = () => {
                     region_id,
                     municipalityId,
                     mayorality_id,
-                    settlement.nuts1,
-                    settlement.nuts2,
-                    settlement.nuts3,
                     settlement.kind,
                     settlement.category,
                     settlement.altitude,

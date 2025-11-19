@@ -44,16 +44,13 @@ const importMayoralities = () => {
             const docResult = await client.query(docQuery);
             const document_id = docResult.rows[0].id;
             const query = {
-                text:'INSERT INTO mayoralties(id_code,name_bg,name_lat,municipality_id,code,nuts1,nuts2,nuts3,document_id,category) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)',
+                text:'INSERT INTO mayoralties(id_code,name_bg,name_lat,municipality_id,code,document_id,category) VALUES ($1, $2, $3, $4, $5, $6, $7)',
                 values:[
                     mayorality.kmetstvo,
                     mayorality.name,
                     mayorality.name_en,
                     municipalityId,
                     mayorality.ekatte,
-                    mayorality.nuts1,
-                    mayorality.nuts2,
-                    mayorality.nuts3,
                     document_id,
                     mayorality.category
                 ]
