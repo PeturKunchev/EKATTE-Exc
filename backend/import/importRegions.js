@@ -1,5 +1,6 @@
 import fs from 'fs';
 import client from '../db.js';
+import { isNonEmptyString, isValidDocumentCode, isValidEkatte, isValidNUTS, isValidRegionCode } from '../validators/validators.js';
 
 const importRegions = () =>{
     fs.readFile('./ekatteFiles/ek_obl.json','utf8',async (err,data)=>{
@@ -11,7 +12,16 @@ const importRegions = () =>{
         const regions = JSON.parse(data);
 
         const validRegions = regions.filter(region => {
-            return region && region.ekatte && region.name && region.oblast;
+            if (!region) return false;
+
+            return (
+                isValidEkatte(region.ekatte) &&
+                isValidRegionCode(region.oblast) &&
+                isNonEmptyString(region.name) && 
+                isNonEmptyString(region.name_en) && 
+                isValidNUTS(region.nuts1, region.nuts2,region.nuts3) &&
+                isValidDocumentCode(region.document)
+            )
         });
 
         for (const region of validRegions) {

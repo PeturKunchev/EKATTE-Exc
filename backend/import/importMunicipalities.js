@@ -1,5 +1,6 @@
 import fs from 'fs';
 import client from '../db.js';
+import { isNonEmptyString, isValidCategory, isValidDocumentCode, isValidEkatte, isValidMunicipalityCode } from '../validators/validators.js';
 
 const importMunicipalities = () => {
     fs.readFile('./ekatteFiles/ek_obst.json','utf8', async (error,data)=>{
@@ -11,7 +12,17 @@ const importMunicipalities = () => {
         const municipalities = JSON.parse(data);
 
         const validMunicipalities = municipalities.filter(municipality => {
-            return municipality && municipality.ekatte && municipality.name && municipality.obshtina;
+            if (!municipality) {
+                return false;
+            }
+            return (
+                isValidEkatte(municipality.ekatte)&&
+                isValidMunicipalityCode(municipality.obshtina) &&
+                isValidDocumentCode(municipality.document) &&
+                isNonEmptyString(municipality.name) && 
+                isNonEmptyString(municipality.name_en)&&
+                isValidCategory(municipality.category)
+            );
         });
         
         for (const municipality of validMunicipalities) {
