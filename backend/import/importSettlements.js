@@ -1,5 +1,6 @@
 import fs from 'fs';
 import client from '../db.js';
+import { isNonEmptyString, isValidAltitude, isValidCategory, isValidDocumentCode, isValidEkatte, isValidSettlementKind, isValidSettlementType } from '../validators/validators.js';
 
 const importMayoralities = () => {
     fs.readFile('./ekatteFiles/ek_atte.json','utf8', async (error,data)=>{
@@ -11,7 +12,18 @@ const importMayoralities = () => {
         const settlements = JSON.parse(data);
 
         const validSettlements = settlements.filter(settlement => {
-            return settlement && settlement.ekatte && settlement.name;
+            if(!settlement) return false;
+
+            return (
+                isValidEkatte(settlement.ekatte)&&
+                isValidDocumentCode(settlement.document) &&
+                isNonEmptyString(settlement.name) && 
+                isNonEmptyString(settlement.name_en) &&
+                isValidCategory(settlement.category) &&
+                isValidSettlementType(settlement.t_v_m) &&
+                isValidSettlementKind(settlement.kind) &&
+                isValidAltitude(settlement.altitude) 
+            )
         });
 
         for (const settlement of validSettlements) {
