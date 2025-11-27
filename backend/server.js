@@ -6,6 +6,7 @@ import { setCors } from './helpers/setCors.js';
 import { notFound } from './helpers/responses.js';
 // import { regionsRouter } from './routes/regions.js';
 import { searchRouter } from './routes/settlementRoute.js';
+import { suggestRouter } from './routes/suggestRoute.js';
 
 const PORT = process.env.PORT;
 const URL = process.env.URL;
@@ -36,6 +37,10 @@ const server = http.createServer(async (req,res)=>{
     if (url.startsWith("/api/search")) {
     return searchRouter(req, res);
 }
+
+    if (url.startsWith("/api/suggest")) {
+        return suggestRouter(req,res);
+    }
 
     return notFound(res);
 });

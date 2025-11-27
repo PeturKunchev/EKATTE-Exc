@@ -17,20 +17,23 @@
         <input
             type="text"
             id="searchInput"
+            autocomplete="off"
             placeholder="Въведи дума... (пример: 'со', 'бург', 'лев')"
         />
+        <ul id="suggestions" class="hidden"></ul>
         <button id="searchBtn">Търси</button>
     </section>
 
     <section id="stats" class="stats hidden">
-        <h2>Статистика</h2>
-        <div class="stats-grid">
-            <div class="stat"><span id="statSettlements">0</span><label>Селища</label></div>
-            <div class="stat"><span id="statMayoralities">0</span><label>Кметства</label></div>
-            <div class="stat"><span id="statMunicipalities">0</span><label>Общини</label></div>
-            <div class="stat"><span id="statRegions">0</span><label>Области</label></div>
+    <h2>Статистика</h2>
+
+    <div class="stats-grid">
+        <div class="stat-box">
+            <div class="label">Намерени</div>
+            <div class="value" id="statsFound">0 / 0</div>
         </div>
-    </section>
+    </div>
+</section>
 
     <section id="results">
         <table id="resultsTable" class="hidden">
@@ -46,8 +49,15 @@
 
             <tbody id="resultsBody"></tbody>
         </table>
+        <div id="pagination" class="hidden">
+            <button id="prevPage"><img class="image" src="./public/back.png"></button>
+            <span id="pageLabel">1</span>
+            <button id="nextPage"><img class="image" src="./public/next.png" alt="" srcset=""></button>
+        </div>
     </section>
 
-    <script src="app.js"></script>
+    <script type="module" src="app.js"></script>
+    <script type="module" src="./helpers/utils.js"></script>
+    <script type="module" src="autosuggest.js"></script>
 </body>
 </html>
